@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{{ site-title }}</title>
+        <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="http://newawe.mysunland.org/assets/css/main.css">
+        <link rel="stylesheet" href="http://newawe.mysunland.org/assets/css/layout.css">
+        <link rel="stylesheet" href="http://newawe.mysunland.org/assets/css/utils.css">
+        <link rel="icon" type="image/png" href="http://newawe.mysunland.org/assets/images/Favicon.png">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    </head>
+    <body>
+        <nav>
+            <ul>
+                <li><a href="?p=home"><img src='http://newawe.mysunland.org/assets/images/PNG.png' width="50px"></a></li>
+                <li><a class="nav-link" href="?p=home">Home</a></li>
+                <li><a class="nav-link" href="?p=login">Login</a></li>
+                <li><a class="nav-link" href="http://newawe.gwiddle.co.uk/Fourm/">Forums</a></li>
+                <li><a class="nav-link" href="?p=contact">Contact</a></li>
+                <li><a class="nav-link" href="#">Create</a></li>
+            </ul>
+        </nav>
+        <header>
+            <h1>{{ page-title }}</h1>
+        </header>
+        <main class="container">
+            {{ content }}
+        </main>
+
+
+        <script src="http://newawe.mysunland.org/assets/javascripts/utils.js"></script>
+        <script src="http://newawe.mysunland.org/assets/javascripts/register.js"></script>
+    </body>
+</html>
