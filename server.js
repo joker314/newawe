@@ -82,12 +82,12 @@ http.createServer(function (request, response) {
 		if (query.p) {
 			//response.write(readFile("assets/global.html").replace("{{ content }}", readFile("assets/pages/" + config.pages[config.index].file)).replace("{{ page-title }}", config.pages[config.index].title));
 			if(config.pages[query.p]) {
-				response.write(readFile("assets/global.html").replace("{{ content }}", readFile("assets/pages/" + config.pages[query.p].file)).replace("{{ page-title }}", config.pages[query.p].title));
+				response.write(readFile("assets/global.html").replace("{{ content }}", readFile("assets/pages/" + config.pages[query.p].file)).replace("{{ page-title }}", config.pages[query.p].title).replace("{{ site-title }}", config.pages[query.p].siteTitle));
 			} else {
-				response.write(readFile("assets/global.html").replace("{{ content }}", readFile("assets/pages/" + config.pages[config["404"]].file)).replace("{{ page-title }}", config.pages[config["404"]].title));
+				response.write(readFile("assets/global.html").replace("{{ content }}", readFile("assets/pages/" + config.pages[config["404"]].file)).replace("{{ page-title }}", config.pages[config["404"]].title).replace("{{ site-title }}", config.pages["404"].siteTitle));
 			}
 		} else {
-			response.write(readFile("assets/global.html").replace("{{ content }}", readFile("assets/pages/" + config.pages[config.index].file)).replace("{{ page-title }}", config.pages[config.index].title));
+			response.write(readFile("assets/global.html").replace("{{ content }}", readFile("assets/pages/" + config.pages[config.index].file)).replace("{{ page-title }}", config.pages[config.index].title).replace("{{ site-title }}", config.pages[config.index].siteTitle));
 		}
 		//response.write(readFile("assets/global.html"));
 		response.end();

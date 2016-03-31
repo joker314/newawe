@@ -1,5 +1,5 @@
 {"index":"home","404":"404","pages":{
-"home":{"title":"Welcome","file":"home.html"},
-"contact":{"title":"contact","file":"contact.html"},
-"404":{"title":"404: page not found","file":"404.html"}
+"home":{"title":"Welcome","siteTitle":"Newawe","file":"home.html"},
+"contact":{"title":"Contact Us","siteTitle":"Contact Us","file":"contact.html"},
+"404":{"title":"404: page not found","siteTitle":"404","file":"404.html"}
 }}
