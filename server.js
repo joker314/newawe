@@ -3,7 +3,7 @@ var configuration = "config.json";
 //the database file
 var dataFile = "data.json";
 //set to port you want server hosted on
-var port = 8008;
+var port = 8000;
 //End Of settings
 var querystring = require('querystring')
 	, fs = require('fs')
@@ -123,7 +123,7 @@ function login(request,response) {
 		if(data.users[request.post.username].password == request.post.password) {
 			var randString = generateKey(50);
 			response.setCookie("sessionId",randString,7);
-			cookiesTable[request.post.username] = randString;
+			cookiesTable[randString] = request.post.username;
 			
 			return true;
 		} else {return "Invalid Username Of Password"}
@@ -162,6 +162,14 @@ function processPost(n, t, e) {
 //the server
 http.createServer(function (request, response) {
 	query = url.parse(request.url, true).query;
+	
+	var key = request.getCookie("sessionId");
+	var user = {"username":"guest","loggedIn":false};
+	if(cookiesTable[key]) {
+		user.username = cookiesTable[key];
+		user.loogedIn = true;
+	}
+	
 	if (request.method == 'POST') {
 		processPost(request, response, function () {
 		console.log(request.post);
@@ -188,6 +196,7 @@ http.createServer(function (request, response) {
 		//	'Content-Type': 'text/html'
 		//});
 		response.setHeader("Content-Type","text/html");
+		
 		if (query.p) {
 			//response.write(readFile("assets/global.html").replace("{{ content }}", readFile("assets/pages/" + config.pages[config.index].file)).replace("{{ page-title }}", config.pages[config.index].title));
 			if(config.pages[query.p]) {
@@ -196,7 +205,7 @@ http.createServer(function (request, response) {
 				response.write(readFile("assets/global.html").replace("{{ content }}", readFile("assets/pages/" + config.pages[config["404"]].file)).replace("{{ page-title }}", config.pages[config["404"]].title).replace("{{ site-title }}", config.pages["404"].siteTitle));
 			}
 		} else {
-			response.write(readFile("assets/global.html").replace("{{ content }}", readFile("assets/pages/" + config.pages[config.index].file)).replace("{{ page-title }}", config.pages[config.index].title).replace("{{ site-title }}", config.pages[config.index].siteTitle));
+			response.write(readFile("assets/global.html").replace("{{ content }}", readFile("assets/pages/" + config.pages[config.index].file)).replace("{{ page-title }}", config.pages[config.index].title).replace("{{ site-title }}", config.pages[config.index].siteTitle).replace("{{ loggedin }}", "Welcome " + user.username));
 		}
 		//response.write(readFile("assets/global.html"));
 		response.end();
