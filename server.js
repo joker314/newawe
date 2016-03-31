@@ -103,7 +103,7 @@ http.OutgoingMessage.prototype.setCookie = function(name, value, exdays, domain,
 
 //here just in case
 function redirectPage(codeToExecute, redirectUrl) {
-	return "<html><script>window.location.replace({{url}});</script></html>".replace("{{url}}", redirectUrl);
+	return "<html><a href='{{url}}' id='element'></a><script>document.getElementById('element').click()</script></html>".replace("{{url}}", redirectUrl);
 }
 
 //function for adding users
@@ -135,12 +135,12 @@ function register(request,response) {
 	if(request.post.password == request.post.rpassword) {
 		var status = addUser(request.post.username,request.post.password,request.post.email);
 		if(status == true) {
-			response.write("you have been registered");
+			response.write(readFile("assets/global.html").replace("{{ content }}", readFile("assets/pages/" + config.pages["signupGood"].file)).replace("{{ page-title }}", config.pages["signupGood"].title).replace("{{ site-title }}", config.pages["signupGood"].siteTitle));
 		} else {
-			response.write("That username is taken");
+			response.write(readFile("assets/global.html").replace("{{ content }}", readFile("assets/pages/" + config.pages["signupFailu"].file)).replace("{{ page-title }}", config.pages["signupFailu"].title).replace("{{ site-title }}", config.pages["signupFailu"].siteTitle));
 		}
 	} else {
-		response.write("passwords don't match");
+		response.write(readFile("assets/global.html").replace("{{ content }}", readFile("assets/pages/" + config.pages["signupFailpm"].file)).replace("{{ page-title }}", config.pages["signupFailpm"].title).replace("{{ site-title }}", config.pages["signupFailpm"].siteTitle));
 	}
 	
 }
@@ -182,8 +182,8 @@ http.createServer(function (request, response) {
 					'Content-Type': 'text/html'
 				});
 				if(status == true) {
-					response.write("you are logged in!");
-				} else {response.write("login failed");}
+					response.write(readFile("assets/global.html").replace("{{ content }}", readFile("assets/pages/" + config.pages["loginGood"].file)).replace("{{ page-title }}", config.pages["loginGood"].title).replace("{{ site-title }}", config.pages["loginGood"].siteTitle));
+				} else {response.write(readFile("assets/global.html").replace("{{ content }}", readFile("assets/pages/" + config.pages["loginFailed"].file)).replace("{{ page-title }}", config.pages["loginFailed"].title).replace("{{ site-title }}", config.pages["loginFailed"].siteTitle));}
 			}
 			if(query.p == "submitReg") {
 				register(request,response);
@@ -200,7 +200,11 @@ http.createServer(function (request, response) {
 		if (query.p) {
 			//response.write(readFile("assets/global.html").replace("{{ content }}", readFile("assets/pages/" + config.pages[config.index].file)).replace("{{ page-title }}", config.pages[config.index].title));
 			if(config.pages[query.p]) {
-				response.write(readFile("assets/global.html").replace("{{ content }}", readFile("assets/pages/" + config.pages[query.p].file)).replace("{{ page-title }}", config.pages[query.p].title).replace("{{ site-title }}", config.pages[query.p].siteTitle));
+				if(query.p == config.index) {
+					response.write(readFile("assets/global.html").replace("{{ content }}", readFile("assets/pages/" + config.pages[config.index].file)).replace("{{ page-title }}", config.pages[config.index].title).replace("{{ site-title }}", config.pages[config.index].siteTitle).replace("{{ loggedin }}", "Welcome back " + user.username + ", "));
+				} else {
+					response.write(readFile("assets/global.html").replace("{{ content }}", readFile("assets/pages/" + config.pages[query.p].file)).replace("{{ page-title }}", config.pages[query.p].title).replace("{{ site-title }}", config.pages[query.p].siteTitle));
+				}
 			} else {
 				response.write(readFile("assets/global.html").replace("{{ content }}", readFile("assets/pages/" + config.pages[config["404"]].file)).replace("{{ page-title }}", config.pages[config["404"]].title).replace("{{ site-title }}", config.pages["404"].siteTitle));
 			}
