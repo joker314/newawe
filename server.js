@@ -41,13 +41,27 @@ if (fs.existsSync(dataFile)) {
 
 }
 
+function updateDatabase() {
+	fs.writeFileSync(dataFile, JSON.stringify(data));
+}
+
 //allow for adding cookies to the system for sessions
 function genScriptPage(codeToExecute, redirectUrl) {
 	return "<html><script>{{code}}</script><script>window.location.replace({{url}});</script></html>".replace("{{code}}", codeToExecute).replace("{{url}}", redirectUrl);
 }
 
-
-
+//function for adding users
+function addUser(username,password,email) {
+	if(data.users) {} else {data.users = {}}
+	if(data.users[username]) {
+		return "User Already Exists";
+	} else {
+		data.users[username] = {"password":password,"email":email,extraData:{}};
+		updateDatabase();
+		return true;
+		
+	}
+}
 //allow server to handle post data and cut off if data exceeds 1 MB of data.
 function processPost(n, t, e) {
 	var o = "";
