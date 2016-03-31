@@ -3,13 +3,15 @@ var configuration = "config.json";
 //the database file
 var dataFile = "data.json";
 //set to port you want server hosted on
-var port = 8080;
+var port = 8000;
 //End Of settings
 var querystring = require('querystring')
 	, fs = require('fs')
 	, http = require('http')
 	, path = require("path");
 url = require('url');
+
+var cookiesTable = {};
 
 function readFile(filePath) {
 	return fs.readFileSync(path.resolve(__dirname, filePath), 'utf8');
@@ -45,9 +47,63 @@ function updateDatabase() {
 	fs.writeFileSync(dataFile, JSON.stringify(data));
 }
 
-//allow for adding cookies to the system for sessions
-function genScriptPage(codeToExecute, redirectUrl) {
-	return "<html><script>{{code}}</script><script>window.location.replace({{url}});</script></html>".replace("{{code}}", codeToExecute).replace("{{url}}", redirectUrl);
+
+http.IncomingMessage.prototype.getCookie = function(name) {
+  var cookies;
+  cookies = {};
+  this.headers.cookie && this.headers.cookie.split(';').forEach(function(cookie) {
+    var parts;
+    parts = cookie.split('=');
+    cookies[parts[0].trim()] = (parts[1] || '').trim();
+  });
+  return cookies[name] || null;
+};
+//Handling cookies
+//geting cookies
+http.IncomingMessage.prototype.getCookies = function() {
+  var cookies;
+  cookies = {};
+  this.headers.cookie && this.headers.cookie.split(';').forEach(function(cookie) {
+    var parts;
+    parts = cookie.split('=');
+    cookies[parts[0].trim()] = (parts[1] || '').trim();
+  });
+  return cookies;
+};
+//setting cookies
+http.OutgoingMessage.prototype.setCookie = function(name, value, exdays, domain, path) {
+  var cookieText, cookies, exdate;
+  cookies = this.getHeader('Set-Cookie');
+  if (typeof cookies !== 'object') {
+    cookies = [];
+  }
+  exdate = new Date();
+  exdate.setDate(exdate.getDate() + exdays);
+  cookieText = name + '=' + value + ';expires=' + exdate.toUTCString() + ';';
+  if (domain) {
+    cookieText += 'domain=' + domain + ';';
+  }
+  if (path) {
+    cookieText += 'path=' + path + ';';
+  }
+  cookies.push(cookieText);
+  this.setHeader('Set-Cookie', cookies);
+};
+
+ var generateKey = function generateKey(keyLength){
+   var chars ="0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
+   var randomStr = '';
+
+   for (var i=0; i < keyLength; i++) {
+     var rnum = Math.floor(Math.random() * chars.length);
+     randomStr += chars.substring(rnum,rnum+1);
+   }
+   return randomStr;
+ };
+
+//here just in case
+function redirectPage(codeToExecute, redirectUrl) {
+	return "<html><script>window.location.replace({{url}});</script></html>".replace("{{url}}", redirectUrl);
 }
 
 //function for adding users
@@ -62,6 +118,33 @@ function addUser(username,password,email) {
 		
 	}
 }
+function login(request,response) {
+	if(data.users[request.post.username]) {
+		if(data.users[request.post.username].password == request.post.password) {
+			var randString = generateKey(50);
+			response.setCookie("sessionId",randString,7);
+			cookiesTable[request.post.username] = randString;
+			
+			return true;
+		} else {return "Invalid Username Of Password"}
+	} else {return "Invalid Username Or Password"}
+}
+
+function register(request,response) {
+	response.setHeader("Content-Type","text/html");
+	if(request.post.password == request.post.rpassword) {
+		var status = addUser(request.post.username,request.post.password,request.post.email);
+		if(status == true) {
+			response.write("you have been registered");
+		} else {
+			response.write("That username is taken");
+		}
+	} else {
+		response.write("passwords don't match");
+	}
+	
+}
+
 //allow server to handle post data and cut off if data exceeds 1 MB of data.
 function processPost(n, t, e) {
 	var o = "";
@@ -81,18 +164,30 @@ http.createServer(function (request, response) {
 	query = url.parse(request.url, true).query;
 	if (request.method == 'POST') {
 		processPost(request, response, function () {
-			console.log(request.post);
+		console.log(request.post);
+		
 			// Use request.post here
-
-			response.writeHead(200, "OK", {
-				'Content-Type': 'text/plain'
-			});
+			if(query.p == "submitLogin") {
+				var status = login(request,response);
+				console.log(status);
+				response.writeHead(200, "OK", {
+					'Content-Type': 'text/html'
+				});
+				if(status == true) {
+					response.write("you are logged in!");
+				} else {response.write("login failed");}
+			}
+			if(query.p == "submitReg") {
+				register(request,response);
+			}
 			response.end();
+			
 		});
 	} else {
-		response.writeHead(200, "OK", {
-			'Content-Type': 'text/html'
-		});
+		//response.writeHead(200, "OK", {
+		//	'Content-Type': 'text/html'
+		//});
+		response.setHeader("Content-Type","text/html");
 		if (query.p) {
 			//response.write(readFile("assets/global.html").replace("{{ content }}", readFile("assets/pages/" + config.pages[config.index].file)).replace("{{ page-title }}", config.pages[config.index].title));
 			if(config.pages[query.p]) {
