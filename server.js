@@ -3,7 +3,7 @@ var configuration = "config.json";
 //the database file
 var dataFile = "data.json";
 //set to port you want server hosted on
-var port = 8000;
+var port = 8008;
 //End Of settings
 var querystring = require('querystring')
 	, fs = require('fs')
