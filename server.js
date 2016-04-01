@@ -126,7 +126,7 @@ function login(request,response) {
 			cookiesTable[randString] = request.post.username;
 			
 			return true;
-		} else {return "Invalid Username Of Password"}
+		} else {return "Invalid Username Or Password"}
 	} else {return "Invalid Username Or Password"}
 }
 
