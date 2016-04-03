@@ -2,6 +2,8 @@
 	"home":{"title":"Welcome","siteTitle":"Newawe","file":"home.html"},
 	
 	"contact":{"title":"Contact Us","siteTitle":"Contact Us","file":"contact.html"},
+        
+        "credits":{"title":"Credits","siteTitle":"Credits","file":"credits.html",
 	
 	"404":{"title":"404: page not found","siteTitle":"404","file":"404.html"},
 	
