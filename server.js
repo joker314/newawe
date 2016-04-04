@@ -5,11 +5,11 @@ var dataFile = "data.json";
 //set to port you want server hosted on
 var port = 8008; //STOP CHANGING IT!!!!!
 //End Of settings
-var querystring = require('querystring')
-	, fs = require('fs')
-	, http = require('http')
-	, path = require("path");
-url = require('url');
+const querystring = require('querystring'),
+      fs = require('fs'),
+      http = require('http'),
+      path = require("path"),
+      url = require('url');
 
 var cookiesTable = {};
 
