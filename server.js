@@ -106,7 +106,7 @@ var generateKey = function generateKey(keyLength) {
 
 //here just in case
 function redirectPage(codeToExecute, redirectUrl) {
-	return "<html><a href='{{url}}' id='element'></a><script>document.getElementById('element').click()</script></html>".replace("{{url}}", redirectUrl);
+	return "<html><script>window.location={{url}}</script><p>If you are not redirected within 10 seconds, click <a href="{{url}}">here.</a></p></html>".replace("{{url}}", redirectUrl);
 }
 
 //function for adding users
