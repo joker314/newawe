@@ -15,36 +15,34 @@ const querystring = require('querystring'),
 var cookiesTable = {};
 
 function readFile(filePath) {
-	return fs.readFileSync(path.resolve(__dirname, filePath), 'utf8');
+  return fs.readFileSync(path.resolve(__dirname, filePath), 'utf8');
 }
 
 if (fs.existsSync(configuration)) {
-	console.log("A past server configuration file already exists!");
-	config = JSON.parse(readFile(configuration));
-	console.log("data setup!");
+  console.log("A past server configuration file already exists!");
+  config = JSON.parse(readFile(configuration));
+  console.log("data setup!");
 } else {
-	console.log("There is no server configuration file creating one now...");
-	fs.writeFileSync(configuration, '{"pages":{}}');
-	config = JSON.parse(readFile(configuration));
-	console.log("configuration setup!");
-
+  console.log("There is no server configuration file creating one now...");
+  fs.writeFileSync(configuration, '{"pages":{}}');
+  config = JSON.parse(readFile(configuration));
+  console.log("configuration setup!");
 }
 
 if (fs.existsSync(dataFile)) {
-	console.log("A past server data file already exists!");
-	console.log("Initializing the data...");
-	data = JSON.parse(readFile(dataFile));
-	console.log("data setup!");
+  console.log("A past server data file already exists!");
+  console.log("Initializing the data...");
+  data = JSON.parse(readFile(dataFile));
+  console.log("data setup!");
 } else {
-	console.log("There is no server data file creating one now...");
-	fs.writeFileSync(dataFile, '{}');
-	data = JSON.parse(readFile(dataFile));
-	console.log("data setup!");
-
+  console.log("There is no server data file creating one now...");
+  fs.writeFileSync(dataFile, '{}');
+  data = JSON.parse(readFile(dataFile));
+  console.log("data setup!");
 }
 
 function updateDatabase() {
-	fs.writeFileSync(dataFile, JSON.stringify(data));
+  fs.writeFileSync(dataFile, JSON.stringify(data));
 }
 
 var Sha1 = {};Sha1.hash = function(t) {t=t.utf8Encode();var e=[1518500249,1859775393,2400959708,3395469782];t+=String.fromCharCode(128);for(var r=t.length/4+2,o=Math.ceil(r/16),n=new Array(o),a=0;o>a;a++){n[a]=new Array(16);for(var f=0;16>f;f++)n[a][f]=t.charCodeAt(64*a+4*f)<<24|t.charCodeAt(64*a+4*f+1)<<16|t.charCodeAt(64*a+4*f+2)<<8|t.charCodeAt(64*a+4*f+3)}n[o-1][14]=8*(t.length-1)/Math.pow(2,32),n[o-1][14]=Math.floor(n[o-1][14]),n[o-1][15]=8*(t.length-1)&4294967295;for(var h,u,c,S,d,i=1732584193,p=4023233417,s=2562383102,y=271733878,v=3285377520,g=new Array(80),a=0;o>a;a++){for(var l=0;16>l;l++)g[l]=n[a][l];for(var l=16;80>l;l++)g[l]=Sha1.ROTL(g[l-3]^g[l-8]^g[l-14]^g[l-16],1);h=i,u=p,c=s,S=y,d=v;for(var l=0;80>l;l++){var x=Math.floor(l/20),C=Sha1.ROTL(h,5)+Sha1.f(x,u,c,S)+d+e[x]+g[l]&4294967295;d=S,S=c,c=Sha1.ROTL(u,30),u=h,h=C}i=i+h&4294967295,p=p+u&4294967295,s=s+c&4294967295,y=y+S&4294967295,v=v+d&4294967295}return Sha1.toHexStr(i)+Sha1.toHexStr(p)+Sha1.toHexStr(s)+Sha1.toHexStr(y)+Sha1.toHexStr(v)},Sha1.f=function(t,e,r,o){switch(t){case 0:return e&r^~e&o;case 1:return e^r^o;case 2:return e&r^e&o^r&o;case 3:return e^r^o}},Sha1.ROTL=function(t,e){return t<<e|t>>>32-e},Sha1.toHexStr=function(t){for(var e,r="",o=7;o>=0;o--)e=t>>>4*o&15,r+=e.toString(16);return r},"undefined"==typeof String.prototype.utf8Encode&&(String.prototype.utf8Encode=function(){return unescape(encodeURIComponent(this))}),"undefined"==typeof String.prototype.utf8Decode&&(String.prototype.utf8Decode=function(){try{return decodeURIComponent(escape(this))}catch(t){return this}}),"undefined"!=typeof module&&module.exports&&(module.exports=Sha1),"function"==typeof define&&define.amd&&define([],function(){return Sha1});
@@ -73,7 +71,7 @@ http.IncomingMessage.prototype.getCookies = function() {
   return cookies;
 };
 
-//setting cookies
+// setting cookies
 http.OutgoingMessage.prototype.setCookie = function(name, value, exdays, domain, path) {
   var cookieText, cookies, exdate;
   cookies = this.getHeader('Set-Cookie');
@@ -93,23 +91,23 @@ http.OutgoingMessage.prototype.setCookie = function(name, value, exdays, domain,
   this.setHeader('Set-Cookie', cookies);
 };
 
- var generateKey = function generateKey(keyLength){
-   var chars ="0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
-   var randomStr = '';
+var generateKey = function generateKey(keyLength){
+  var chars ="0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
+  var randomStr = '';
 
-   for (var i=0; i < keyLength; i++) {
-     var rnum = Math.floor(Math.random() * chars.length);
-     randomStr += chars.substring(rnum,rnum+1);
-   }
-   return randomStr;
- };
+  for (var i=0; i < keyLength; i++) {
+    var rnum = Math.floor(Math.random() * chars.length);
+    randomStr += chars.substring(rnum,rnum+1);
+  }
+  return randomStr;
+};
 
-//here just in case
+// here just in case
 function redirectPage(codeToExecute, redirectUrl) {
 	return "<html><a href='{{url}}' id='element'></a><script>document.getElementById('element').click()</script></html>".replace("{{url}}", redirectUrl);
 }
 
-//function for adding users
+// function for adding users
 function addUser(username,password,email,salt) {
 	if(data.users) {} else {data.users = {}}
 	if(data.users[username]) {
@@ -121,6 +119,7 @@ function addUser(username,password,email,salt) {
 		
 	}
 }
+
 function login(request,response) {
 	if(data.users[request.post.username]) {
 		if(data.users[request.post.username].password == Sha1.hash(request.post.password + data.users[request.post.username].salt)) {
@@ -165,7 +164,7 @@ function processPost(n, t, e) {
 	}), t.end()))
 }
 
-//the server
+// the server
 http.createServer(function (request, response) {
 	query = url.parse(request.url, true).query;
 	
