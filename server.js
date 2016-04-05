@@ -49,7 +49,17 @@ function updateDatabase() {
 	fs.writeFileSync(dataFile, JSON.stringify(data));
 }
 
+function contentReplace = function(string, data) { // Replaces string 'test{{ abc }}' with data '{"abc": "123"}' in order to make test123
+	var str = string;
+	for(var key in data){
+		str = str.replace("{{ "+key+" }}", data[key]);
+	}
+	return str;
+};
 
+function globalSiteText(pageName){ // A nice function to return replaced data ({{ content }}) from a given file based off of global.html
+	return contentReplace(readFile("assets/global.html"),{"content": contentReplace(readFile("assets/pages/" + config.pages[pageName].file), {"page-title": config.pages[pageName].title, "site-title": config.pages[pageName].siteTitle})});
+}
 
 http.IncomingMessage.prototype.getCookie = function (name) {
 	var cookies;
@@ -106,7 +116,7 @@ var generateKey = function generateKey(keyLength) {
 
 //here just in case
 function redirectPage(codeToExecute, redirectUrl) {
-	return "<html><script>window.location={{url}}</script><p>If you are not redirected within 10 seconds, click <a href="{{url}}">here.</a></p></html>".replace("{{url}}", redirectUrl);
+	return contentReplace('<html><script>window.location={{ url }}</script><p>If you are not redirected within 10 seconds, click <a href="{{ url }}">here.</a></p></html>',{"url": redirectUrl});
 }
 
 //function for adding users
@@ -152,14 +162,14 @@ function register(request, response) {
 		var status = addUser(request.post.username, request.post.password, request.post.email);
 		if (status == true) {
 			console.log(request.post.username + " Signed up")
-			response.write(readFile("assets/global.html").replace("{{ content }}", readFile("assets/pages/" + config.pages["signupGood"].file)).replace("{{ page-title }}", config.pages["signupGood"].title).replace("{{ site-title }}", config.pages["signupGood"].siteTitle));
+			response.write(globalSiteText("signupGood"));
 		} else {
 			console.log("someone attempted to sign in with the username: " + request.post.username + " but it was already taken");
-			response.write(readFile("assets/global.html").replace("{{ content }}", readFile("assets/pages/" + config.pages["signupFailu"].file)).replace("{{ page-title }}", config.pages["signupFailu"].title).replace("{{ site-title }}", config.pages["signupFailu"].siteTitle));
+			response.write(globalSiteText("signupFailu"));
 		}
 	} else {
 		console.log("someone attempted to signup with the usename " + request.post.username + " but there passwords dis not match");
-		response.write(readFile("assets/global.html").replace("{{ content }}", readFile("assets/pages/" + config.pages["signupFailpm"].file)).replace("{{ page-title }}", config.pages["signupFailpm"].title).replace("{{ site-title }}", config.pages["signupFailpm"].siteTitle));
+		response.write(globalSiteText("signupFailpm"));
 	}
 
 }
@@ -203,9 +213,9 @@ http.createServer(function (request, response) {
 					'Content-Type': 'text/html'
 				});
 				if (status == true) {
-					response.write(readFile("assets/global.html").replace("{{ content }}", readFile("assets/pages/" + config.pages["loginGood"].file)).replace("{{ page-title }}", config.pages["loginGood"].title).replace("{{ site-title }}", config.pages["loginGood"].siteTitle));
+					response.write(globalSiteText("loginGood"));
 				} else {
-					response.write(readFile("assets/global.html").replace("{{ content }}", readFile("assets/pages/" + config.pages["loginFailed"].file)).replace("{{ page-title }}", config.pages["loginFailed"].title).replace("{{ site-title }}", config.pages["loginFailed"].siteTitle));
+					response.write(globalSiteText("loginFailed"));
 				}
 			}
 			if (query.p == "submitReg") {
@@ -224,15 +234,15 @@ http.createServer(function (request, response) {
 			//response.write(readFile("assets/global.html").replace("{{ content }}", readFile("assets/pages/" + config.pages[config.index].file)).replace("{{ page-title }}", config.pages[config.index].title));
 			if (config.pages[query.p]) {
 				if (query.p == config.index) {
-					response.write(readFile("assets/global.html").replace("{{ content }}", readFile("assets/pages/" + config.pages[config.index].file)).replace("{{ page-title }}", config.pages[config.index].title).replace("{{ site-title }}", config.pages[config.index].siteTitle).replace("{{ loggedin }}", "Welcome back " + user.username + ", "));
+					response.write(globalSiteText("config.index").replace("{{ loggedin }}", "Welcome back " + user.username + " , "));
 				} else {
-					response.write(readFile("assets/global.html").replace("{{ content }}", readFile("assets/pages/" + config.pages[query.p].file)).replace("{{ page-title }}", config.pages[query.p].title).replace("{{ site-title }}", config.pages[query.p].siteTitle));
+					response.write(globalSiteText(query.p));
 				}
 			} else {
-				response.write(readFile("assets/global.html").replace("{{ content }}", readFile("assets/pages/" + config.pages[config["404"]].file)).replace("{{ page-title }}", config.pages[config["404"]].title).replace("{{ site-title }}", config.pages["404"].siteTitle));
+				response.write(globalSiteText("404"));
 			}
 		} else {
-			response.write(readFile("assets/global.html").replace("{{ content }}", readFile("assets/pages/" + config.pages[config.index].file)).replace("{{ page-title }}", config.pages[config.index].title).replace("{{ site-title }}", config.pages[config.index].siteTitle).replace("{{ loggedin }}", "Welcome " + user.username));
+			response.write(globalSiteText("config.index").replace("{{ loggedin }}", "Welcome " + user.username));
 		}
 		//response.write(readFile("assets/global.html"));
 		response.end();
