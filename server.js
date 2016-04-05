@@ -5,12 +5,12 @@ var dataFile = "data.json";
 //set to port you want server hosted on
 var port = 8000;
 //End Of settings
-var querystring = require('querystring')
-	, fs = require('fs')
-	, http = require('http')
-	, path = require("path")
-	, url = require('url')
-	, bcrypt = require("bcrypt-nodejs");
+const querystring = require('querystring'),
+      fs = require('fs'),
+      http = require('http'),
+      path = require("path"),
+      url = require('url'),
+      bcrypt = require("bcrypt-nodejs");
 
 var cookiesTable = {};
 
