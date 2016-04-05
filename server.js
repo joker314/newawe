@@ -109,7 +109,7 @@ var generateKey = function generateKey(keyLength) {
 
 	for (var i = 0; i < keyLength; i++) {
 		var rnum = Math.floor(Math.random() * chars.length);
-		randomStr += chars.substring(rnum, rnum + 1);
+		randomStr += chars[rnum];
 	}
 	return randomStr;
 };
