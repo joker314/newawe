@@ -49,7 +49,7 @@ function updateDatabase() {
 	fs.writeFileSync(dataFile, JSON.stringify(data));
 }
 
-function contentReplace = function(string, data) { // Replaces string 'test{{ abc }}' with data '{"abc": "123"}' in order to make test123
+function substitute = function(string, data) { // Replaces string 'test{{ abc }}' with data '{"abc": "123"}' in order to make test123
 	var str = string;
 	for(var key in data){
 		str = str.replace("{{ "+key+" }}", data[key]);
@@ -58,7 +58,7 @@ function contentReplace = function(string, data) { // Replaces string 'test{{ ab
 };
 
 function globalSiteText(pageName){ // A nice function to return replaced data ({{ content }}) from a given file based off of global.html
-	return contentReplace(readFile("assets/global.html"),{"content": contentReplace(readFile("assets/pages/" + config.pages[pageName].file), {"page-title": config.pages[pageName].title, "site-title": config.pages[pageName].siteTitle})});
+	return substitute(readFile("assets/global.html"),{"content": substitute(readFile("assets/pages/" + config.pages[pageName].file), {"page-title": config.pages[pageName].title, "site-title": config.pages[pageName].siteTitle})});
 }
 
 http.IncomingMessage.prototype.getCookie = function (name) {
@@ -116,7 +116,7 @@ var generateKey = function generateKey(keyLength) {
 
 //here just in case
 function redirectPage(codeToExecute, redirectUrl) {
-	return contentReplace('<html><script>window.location={{ url }}</script><p>If you are not redirected within 10 seconds, click <a href="{{ url }}">here.</a></p></html>',{"url": redirectUrl});
+	return substitute('<html><script>window.location={{ url }}</script><p>If you are not redirected within 10 seconds, click <a href="{{ url }}">here.</a></p></html>',{"url": redirectUrl});
 }
 
 //function for adding users
