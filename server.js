@@ -49,7 +49,7 @@ function updateDatabase() {
 	fs.writeFileSync(dataFile, JSON.stringify(data));
 }
 
-function substitute = function(string, data) { // Replaces string 'test{{ abc }}' with data '{"abc": "123"}' in order to make test123
+function substitute(string, data) { // Replaces string 'test{{ abc }}' with data '{"abc": "123"}' in order to make test123
 	var str = string;
 	for(var key in data){
 		str = str.replace("{{ "+key+" }}", data[key]);
