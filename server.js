@@ -2,9 +2,7 @@
 var configuration = "config.json";
 //the database file
 var dataFile = "data.json";
-//set to port you want server hosted on
-var port = 8000;
-//End Of settings
+
 const querystring = require('querystring'),
       fs = require('fs'),
       http = require('http'),
@@ -29,8 +27,6 @@ if (fs.existsSync(configuration)) {
 	console.log("configuration setup!");
 
 }
-
-
 
 if (fs.existsSync(dataFile)) {
 	console.log("A past server data file already exists!");
@@ -71,6 +67,7 @@ http.IncomingMessage.prototype.getCookie = function (name) {
 	});
 	return cookies[name] || null;
 };
+
 //Handling cookies
 //geting cookies
 http.IncomingMessage.prototype.getCookies = function () {
@@ -83,6 +80,7 @@ http.IncomingMessage.prototype.getCookies = function () {
 	});
 	return cookies;
 };
+
 //setting cookies
 http.OutgoingMessage.prototype.setCookie = function (name, value, exdays, domain, path) {
 	var cookieText, cookies, exdate;
@@ -116,12 +114,12 @@ var generateKey = function generateKey(keyLength) {
 
 //here just in case
 function redirectPage(codeToExecute, redirectUrl) {
-	return substitute('<html><script>window.location={{ url }}</script><p>If you are not redirected within 10 seconds, click <a href="{{ url }}">here.</a></p></html>',{"url": redirectUrl});
+	return substitute('<html><script>window.location={{ url }}</script><p>If you are not redirected within 10 seconds, click <a href="{{ url }}">here.</a></p></html>', {"url": redirectUrl});
 }
 
 //function for adding users
 function addUser(username, password, email, salt) {
-	if (data.users) {} else {
+	if (!data.users) {
 		data.users = {}
 	}
 	if (data.users[username]) {
@@ -164,11 +162,11 @@ function register(request, response) {
 			console.log(request.post.username + " Signed up")
 			response.write(globalSiteText("signupGood"));
 		} else {
-			console.log("someone attempted to sign in with the username: " + request.post.username + " but it was already taken");
+			console.log("someone attempted to sign up with the username: " + request.post.username + " but it was already taken");
 			response.write(globalSiteText("signupFailu"));
 		}
 	} else {
-		console.log("someone attempted to signup with the usename " + request.post.username + " but there passwords dis not match");
+		console.log("someone attempted to signup with the username " + request.post.username + " but the passwords don't match");
 		response.write(globalSiteText("signupFailpm"));
 	}
 
@@ -243,4 +241,4 @@ http.createServer(function (request, response) {
 		response.end();
 	}
 
-}).listen(port);
+}).listen(config.port);
