@@ -15,7 +15,7 @@ const querystring = require('querystring'),
 var cookiesTable = {};
 
 function readFile(filePath) {
-	return fs.readFileSync(path.resolve(__dirname, filePath), 'utf8');
+	return fs.readFileSync(path.resolve(__dirname, filePath), 'utf-8');
 }
 
 if (fs.existsSync(configuration)) {
