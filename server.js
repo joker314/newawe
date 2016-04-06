@@ -225,16 +225,12 @@ http.createServer(function (request, response) {
 
 		});
 	} else {
-		//response.writeHead(200, "OK", {
-		//	'Content-Type': 'text/html'
-		//});
 		response.setHeader("Content-Type", "text/html");
 
 		if (query.p) {
-			//response.write(readFile("assets/global.html").replace("{{ content }}", readFile("assets/pages/" + config.pages[config.index].file)).replace("{{ page-title }}", config.pages[config.index].title));
 			if (config.pages[query.p]) {
 				if (query.p == config.index) {
-					response.write(globalSiteText("config.index").replace("{{ loggedin }}", "Welcome back " + user.username + " , "));
+					response.write(globalSiteText(config.index).replace("{{ loggedin }}", "Welcome back " + user.username + " , "));
 				} else {
 					response.write(globalSiteText(query.p));
 				}
@@ -242,9 +238,8 @@ http.createServer(function (request, response) {
 				response.write(globalSiteText("404"));
 			}
 		} else {
-			response.write(globalSiteText("config.index").replace("{{ loggedin }}", "Welcome " + user.username));
+			response.write(globalSiteText(config.index).replace("{{ loggedin }}", "Welcome " + user.username));
 		}
-		//response.write(readFile("assets/global.html"));
 		response.end();
 	}
 
