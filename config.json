@@ -1,24 +1,17 @@
-{"index":"home","404":"404","pages":{
-	"home":{"title":"Welcome","siteTitle":"Newawe","file":"home.html"},
-	
-	"contact":{"title":"Contact Us","siteTitle":"Contact Us","file":"contact.html"},
-	
-	"404":{"title":"404: page not found","siteTitle":"404","file":"404.html"},
-	
-	"401":{"title":"401","siteTitle":"401","file":"401.html"},
-	
-	"login":{"title":"Login","siteTitle":"Login","file":"login.html"},
-	
-	"signup":{"title":"Signup","siteTitle":"signup","file":"signup.html"},
-	
-	"loginFailed":{"title":"Login","siteTitle":"Login","file":"loginFailed.html"},
-	
-	"loginGood":{"title":"You Are Now Logged In","siteTitle":"Logged In","file":"loginGood.html"},
-	
-	"signupGood":{"title":"Login","siteTitle":"Login","file":"signupGood.html"},
-	
-	"signupFailpm":{"title":"Signup","siteTitle":"signup","file":"signupFailPasswordMatch.html"},
-	
-	"signupFailu":{"title":"Signup","siteTitle":"signup","file":"signupFailUsername.html"}
-	
-}}
+{
+	"index": "home",
+	"404": "404",
+	"pages": {
+		"home": {"title":"Welcome","siteTitle":"Newawe","file":"home.html"},
+		"contact": {"title":"Contact Us","siteTitle":"Contact Us","file":"contact.html"},
+		"404": {"title":"404: page not found","siteTitle":"404","file":"404.html"},
+		"401": {"title":"401","siteTitle":"401","file":"401.html"},
+		"login": {"title":"Login","siteTitle":"Login","file":"login.html"},
+		"signup": {"title":"Signup","siteTitle":"signup","file":"signup.html"},
+		"loginFailed": {"title":"Login","siteTitle":"Login","file":"loginFailed.html"},
+		"loginGood": {"title":"You Are Now Logged In","siteTitle":"Logged In","file":"loginGood.html"},
+		"signupGood": {"title":"Login","siteTitle":"Login","file":"signupGood.html"},
+		"signupFailpm": {"title":"Signup","siteTitle":"signup","file":"signupFailPasswordMatch.html"},
+		"signupFailu": {"title":"Signup","siteTitle":"signup","file":"signupFailUsername.html"}
+	}
+}
