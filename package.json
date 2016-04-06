@@ -1,0 +1,28 @@
+{
+	"name": "newawe",
+	"version": "1.0.0",
+	"description": "Newawe",
+	"main": "server.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "node server.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Newawe/newawe-node.git"
+	},
+	"keywords": [
+		"newawe",
+		"code",
+		"share"
+	],
+	"dependencies": {
+		"bcrypt-nodejs": ">=0.0.3"
+	},
+	"author": "Newawe",
+	"license": "GPL-3.0",
+	"bugs": {
+		"url": "https://github.com/Newawe/newawe-node/issues"
+	},
+	"homepage": "https://github.com/Newawe/newawe-node"
+}
