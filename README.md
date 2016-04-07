@@ -1,5 +1,5 @@
-# newawe-node
-A node.js edition of the server
+# newawe
+A website to share your code on.
 
 ## How to use
 If you haven't already, install the dependencies using
