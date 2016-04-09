@@ -20,6 +20,8 @@ var configuration = "config.json";
 //the database file
 var dataFile = "data.json";
 
+var config = {};
+
 const querystring = require('querystring'),
       fs = require('fs'),
       http = require('http'),
