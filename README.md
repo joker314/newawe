@@ -1,5 +1,5 @@
 # newawe
-A website to share your code on. Newawe is sort of like GitHub, accept with a more interactive community. 
+A website to share your code on. Newawe is sort of like GitHub, except with a more interactive community. 
 
 ## How to use
 If you haven't already, install the dependencies using
