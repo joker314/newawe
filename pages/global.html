@@ -4,12 +4,17 @@
         <meta charset="utf-8">
         <title>{{ site-title }}</title>
         <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="pages/css/main.css">
+        <link rel="stylesheet" href="pages/css/layout.css">
+        <link rel="stylesheet" href="pages/css/utils.css">
+        <link rel="icon" type="image/png" href="pages/imgs/favicon.png">
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
     <body>
         <header>
             <nav>
                 <ul>
+                    <li><a href="?p=home"><img src="pages/imgs/favicon.png" width="50px"></a></li>
                     <li><a class="nav-link" href="?p=home">Home</a></li>
                     <li><a class="nav-link" href="?p=login">Login</a></li>
                     <li><a class="nav-link" href="http://newawe.gwiddle.co.uk/Fourm/">Forums</a></li>
@@ -22,5 +27,7 @@
         <main class="container">
             {{ content }}
         </main>
+        <script src="pages/js/utils.js"></script>
+        <script src="pages/js/register.js"></script>
     </body>
 </html>
