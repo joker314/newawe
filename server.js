@@ -71,7 +71,7 @@ function substitute(string, data) { // Replaces string 'test{{ abc }}' with data
 };
 
 function globalSiteText(pageName){ // A nice function to return replaced data ({{ content }}) from a given file based off of global.html
-	return substitute(readFile("assets/global.html"),{"content": substitute(readFile("assets/pages/" + config.pages[pageName].file), {"page-title": config.pages[pageName].title, "site-title": config.pages[pageName].siteTitle})});
+	return substitute(readFile("pages/global.html"),{"content": substitute(readFile("pages/html/" + config.pages[pageName].file), {"page-title": config.pages[pageName].title, "site-title": config.pages[pageName].siteTitle})});
 }
 
 http.IncomingMessage.prototype.getCookie = function (name) {
