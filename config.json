@@ -14,5 +14,6 @@
 		"signupGood": {"title":"Login","siteTitle":"Login","file":"signupGood.html"},
 		"signupFailpm": {"title":"Signup","siteTitle":"signup","file":"signupFailPasswordMatch.html"},
 		"signupFailu": {"title":"Signup","siteTitle":"signup","file":"signupFailUsername.html"}
+		"terms": {"title":"Terms of Use","sitetitle":"Terms of Use","file":"terms.html"}
 	}
 }
