@@ -142,15 +142,20 @@ function addUser(username, password, email, salt) {
 		data.users = {}
 	}
 	if (data.users[username]) {
-		return "User Already Exists";
+		return "uAE"; //uAE = user Already Exists
 	} else {
-		data.users[username] = {
+		userPattern = new RegExp("^[a-zA-Z0-9_]+$");
+		if(userPattern.test(username)){
+				data.users[username] = {
 			"password": bcrypt.hashSync(password)
 			, "email": email
 			, extraData: {}
 		};
 		updateDatabase();
-		return true;
+		return true;	
+		} else{
+			return "uNV"; //uNV = username Not Valid (contains chars other than english alphanumeric)
+		}
 
 	}
 }
@@ -181,8 +186,14 @@ function register(request, response) {
 			console.log(request.post.username + " Signed up")
 			response.write(globalSiteText("signupGood"));
 		} else {
-			console.log("someone attempted to sign up with the username: " + request.post.username + " but it was already taken");
-			response.write(globalSiteText("signupFailu"));
+			if(status == "uAE") { //usename exists
+				console.log("someone attempted to sign up with the username: " + request.post.username + " but it was already taken");
+				response.write(globalSiteText("signupFailu"));
+			} else
+			{
+			console.log("someone attempted to sign up with the username: " + request.post.username + " but it contained invalid characters");
+			response.write(globalSiteText("signupFailunv")); //***File does not exist yet!***
+			}
 		}
 	} else {
 		console.log("someone attempted to signup with the username " + request.post.username + " but the passwords don't match");
