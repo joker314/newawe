@@ -10,6 +10,14 @@
         <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/Newawe/newawe/master/pages/imgs/favicon.png">
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
+<script>
+    function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires="+d.toUTCString();
+    document.cookie = cname + "=" + cvalue + "; " + expires;
+}
+</script>
 <script> (function() {
 var cx = '016025608616163530852:rsbtthvpyu8';
 var gcse = document.createElement('script');
@@ -23,9 +31,10 @@ var gcse = document.createElement('script');
         <header>
             <nav>
                 <ul>
-                    <li><a href="?p=home"><img src="https://raw.githubusercontent.com/Newawe/newawe/master/pages/imgs/newaweimg.png" alt="Logo" width="60px" height="60px"></a></li>
+                    <li><a href="?p=home"><img src="https://raw.githubusercontent.com/Newawe/newawe/master/pages/imgs/newaweimg.png" alt="Logo" width="60px" height="50px"></a></li>
                     <li><input type='text' name='search' placeholder='Search Newawe'></li>
                     <li><a class="nav-link" href="?p=login">Login</a></li>
+                    <li><a class="nav-link" href="javascript:setCookie("sessionId","0",360)">Signout</a></li>
                     <li><a class="nav-link" href="http://newawe.gwiddle.co.uk/Fourm/">Forums</a></li>
                     <li><a class="nav-link" href="?p=contact">Contact</a></li>
                     <li><a class="nav-link" href="?p=create">Create</a></li>
