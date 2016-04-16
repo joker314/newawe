@@ -1,5 +1,5 @@
-var x = {
-"english" : [
+{
+"English" : [
   "Login",
   "Forums",
   "Contact",
@@ -9,7 +9,7 @@ var x = {
   "Share your code",
   "With the world"
 ], 
-"russian" : [
+"Russian" : [
   "Зайти",
   "Форумы",
   "Связаться",
