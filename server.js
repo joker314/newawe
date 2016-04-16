@@ -30,7 +30,10 @@ const querystring = require('querystring'),
       bcrypt = require("bcrypt-nodejs");
 
 var cookiesTable = {};
-
+/* To be used whenever user-input is outputed */
+function escapeHTML(evilText){
+	return evilText.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace("&nbsp;");
+}
 function readFile(filePath) {
 	return fs.readFileSync(path.resolve(__dirname, filePath), 'utf-8');
 }
@@ -137,7 +140,7 @@ function redirectPage(codeToExecute, redirectUrl) {
 }
 
 //function for adding users
-function addUser(username, password, email, salt) {
+function addUser(username, password, email, salt){
 	if (!data.users) {
 		data.users = {}
 	}
