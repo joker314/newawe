@@ -1,0 +1,21 @@
+var x = {
+"english" : [
+  "Login",
+  "Forums",
+  "Contact",
+  "Create",
+  "Don't have an account?"
+  "Sign up?",
+  "Share your code",
+  "With the world"
+], 
+"russian" : [
+  "Зайти",
+  "Форумы",
+  "Связаться",
+  "",
+  "Зарегистрироваться?",
+  "Поделитесь вашем кодом",
+  "С всему миру"
+]
+}
