@@ -9,7 +9,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/Newawe/newawe-node.git"
+		"url": "git+https://github.com/Newawe/newawe.git"
 	},
 	"keywords": [
 		"newawe",
@@ -23,7 +23,7 @@
 	"author": "Newawe",
 	"license": "GPL-3.0",
 	"bugs": {
-		"url": "https://github.com/Newawe/newawe-node/issues"
+		"url": "https://github.com/Newawe/newawe"
 	},
-	"homepage": "https://github.com/Newawe/newawe-node"
+	"homepage": "https://github.com/Newawe/newawe"
 }
