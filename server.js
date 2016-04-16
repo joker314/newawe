@@ -19,7 +19,7 @@
 var configuration = "config.json";
 //the database file
 var dataFile = "data.json";
-
+var transFile = "language.json";
 var config = {};
 
 const querystring = require('querystring'),
@@ -37,6 +37,10 @@ function escapeHTML(evilText){
 function readFile(filePath) {
 	return fs.readFileSync(path.resolve(__dirname, filePath), 'utf-8');
 }
+var outputs = JSON.parse(readFile(transFile));
+/* Here we need to check the language of the user */
+/* We need to replace all hardwired words into references
+to the parsed JSON */
 
 if (fs.existsSync(configuration)) {
 	console.log("A past server configuration file already exists!");
