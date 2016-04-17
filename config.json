@@ -16,7 +16,7 @@
 		"signupFailu": {"title":"Signup","siteTitle":"signup","file":"signupFailUsername.html"},
 		"terms": {"title":"Terms of Use","sitetitle":"Terms of Use","file":"terms.html"},
 		"credits": {"title":"Credits","sitetitle":"The Creators!","file":"credits.html"},
-		"create": {"title":"Create","sitetitle":"Create","file":"editor.html"}
+		"create": {"title":"Create","sitetitle":"Create","file":"editor.html"},
 		"signupFailunv": {"title":"Signup", "siteTitle":"signup", "file":"signupFailUsernameInvalid.html"}
 	}
 }
