@@ -7,16 +7,15 @@ html, body {
     margin: 0;
     padding: 0;
 }
-.good .bad{
-    display: block;
-}
 .bad{
     background-color: pink;
     color: red;
+    display: block;
 }
 .good{
     background-color: aquamarine;
     color: green;
+    display: block;
 }
 a {
     color: black;
