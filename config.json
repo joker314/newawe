@@ -17,6 +17,7 @@
 		"terms": {"title":"Terms of Use","sitetitle":"Terms of Use","file":"terms.html"},
 		"credits": {"title":"Credits","sitetitle":"The Creators!","file":"credits.html"},
 		"create": {"title":"Create","sitetitle":"Create","file":"editor.html"},
-		"signupFailunv": {"title":"Signup", "siteTitle":"signup", "file":"signupFailUsernameInvalid.html"}
+		"signupFailunv": {"title":"Signup", "siteTitle":"signup", "file":"signupFailUsernameInvalid.html"},
+		"signupFailenv": {"title":"Signup", "siteTitle":"signup", "file":"signupFailEmailInvalid.html"}
 	}
 }
