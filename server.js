@@ -32,7 +32,7 @@ const querystring = require('querystring'),
 var cookiesTable = {};
 /* To be used whenever user-input is outputed */
 function escapeHTML(evilText){
-	return evilText.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace("&nbsp;");
+	return evilText.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace(" ", "&nbsp;").replace("'", "&apos;").replace('"', "&quot;");
 }
 function readFile(filePath) {
 	return fs.readFileSync(path.resolve(__dirname, filePath), 'utf-8');
