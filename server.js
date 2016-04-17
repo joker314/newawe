@@ -152,12 +152,17 @@ function addUser(username, password, email, salt){
 		return "uAE"; //uAE = user Already Exists
 	} else {
 		userPattern = new RegExp("^[a-zA-Z0-9_]+$");
+		emailPattern = new RegExp("^[0-9A-Za-z_-.]+@^[0-9A-Za-z_-.]+(:[0-9]+)?$"); //I think this accepts ports, e.g. example.com:71
 		if(userPattern.test(username)){
+			if(emailPattern.test){
 				data.users[username] = {
 			"password": bcrypt.hashSync(password)
 			, "email": email
 			, extraData: {}
 		};
+		} else{
+			return "eNV" //eNV = email not vaid
+		}
 		updateDatabase();
 		return true;	
 		} else{
@@ -198,8 +203,15 @@ function register(request, response) {
 				response.write(globalSiteText("signupFailu"));
 			} else
 			{
+				if(status == "uNV"){ //Username contains invalid chars
 			console.log("someone attempted to sign up with the username: " + request.post.username + " but it contained invalid characters");
-			response.write(globalSiteText("signupFailunv")); //***File does not exist yet!***
+			response.write(globalSiteText("signupFailunv"));
+				} else{
+					if(status == "eNV"){ //Email contains invalid chars
+								console.log("someone attempted to sign up with the email: " + request.post.email + " but it contained invalid characters");
+								response.write(globalSiteText("signupFailenv"));	
+					}
+				}
 			}
 		}
 	} else {
