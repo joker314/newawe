@@ -18,6 +18,7 @@
 		"credits": {"title":"Credits","sitetitle":"The Creators!","file":"credits.html"},
 		"create": {"title":"Create","sitetitle":"Create","file":"editor.html"},
 		"signupFailunv": {"title":"Signup", "siteTitle":"signup", "file":"signupFailUsernameInvalid.html"},
+		"Signout": {"title":"Signout","siteTitle":"Signout","file":"signout.html"},
 		"signupFailenv": {"title":"Signup", "siteTitle":"signup", "file":"signupFailEmailInvalid.html"}
 	}
 }
